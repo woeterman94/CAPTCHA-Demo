@@ -21,15 +21,20 @@
 </head>
 
 <body>
-    <h1>Invisible Google Recaptcha</h1>
+    <div class="ui container">
+        <h1>Invisible Google Recaptcha</h1>
 
+        <h2>Token</h2>
+        <div class="ui input">
+            <input id="captcha-token" type="text" placeholder="Token should appear here">
+        </div>
+    </div>
+
+    <!-- We must declare this element somewhere -->
     <div class="g-recaptcha"></div>
-
-    <button class="ui inverted orange button" onclick="grecaptcha.execute()">Execute captcha</button>
 
     <script>
         window.onScriptLoad = function () {
-            console.log("on script load");
             // this callback will be called by recaptcah/api.js once its loaded. If we used
             // render=explicit as param in script src, then we can explicitly render reCaptcha at this point
 
@@ -52,11 +57,16 @@
 
             // now render
             recaptchaId = window.grecaptcha.render(htmlEl, captchaOptions, inheritFromDataAttr);
+
+            //Do this on page load:
+            grecaptcha.execute();
         };
 
         // this is assigned from "data-callback" or render()'s "options.callback"
         window.onUserVerified = function (token) {
             console.log('token=', token);
+            document.getElementById("captcha-token").value = token;
+
         };
 
 
