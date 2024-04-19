@@ -23,13 +23,21 @@
 <body>
     <div class="ui container">
         <h1>Invisible Google Recaptcha</h1>
-        <p>Automatically fetch a captcha token on page load. We send this token to our backend to validate if the user
-            is a user and not a bot. </p>
+
+        <p>Business scenario: fetching a public faced API. To protect the API against
+            brute-force attack we protect it
+            with an CAPTCHA</p>
 
         <h2>Token</h2>
         <div class="ui input">
             <input id="captcha-token" type="text" placeholder="Token should appear here">
         </div>
+        <br /> <br />
+
+        <p>Automatically fetch a captcha token on page load. We send this token to our
+            backend to validate if the user
+            is a user and not a bot.</p>
+
     </div>
 
     <!-- We must declare this element somewhere -->
