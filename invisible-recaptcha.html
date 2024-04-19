@@ -17,12 +17,14 @@
 
     <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onScriptLoad" async defer></script>
 
-
+    <title>Invisible Captcha demo</title>
 </head>
 
 <body>
     <div class="ui container">
         <h1>Invisible Google Recaptcha</h1>
+        <p>Automatically fetch a captcha token on page load. We send this token to our backend to validate if the user
+            is a user and not a bot. </p>
 
         <h2>Token</h2>
         <div class="ui input">
@@ -49,7 +51,11 @@
                 // if this value is string, then it must be name of function accessible via window['nameOfFunc'], 
                 // and passing string is equivalent to specifying data-callback='nameOfFunc', but it can be
                 // reference to an actual function
-                callback: window.onUserVerified
+                callback: window.onUserVerified,
+                "error-callback": window.onError, // --> captcha error
+                "expired-callback": window.onExpired, // --> captcha is expired
+
+                // see all callbacks here: https://developers.google.com/recaptcha/docs/invisible#render_param
             };
 
             // Only for "invisible" type. if true, will read value from html-element's data-* attribute if its not passed via captchaOptions
@@ -58,7 +64,7 @@
             // now render
             recaptchaId = window.grecaptcha.render(htmlEl, captchaOptions, inheritFromDataAttr);
 
-            //Do this on page load:
+            //Do this on page load or execute this method when calling the api
             grecaptcha.execute();
         };
 
@@ -68,6 +74,17 @@
             document.getElementById("captcha-token").value = token;
 
         };
+
+        window.onError = function (token) {
+            alert("Captcha error: please reload the page.");
+        }
+
+        window.onExpired = function (token) {
+            alert("Captcha expired: please reload the page to get a new token.");
+            // console.log("Captcha expired: Relaunching challenge");
+            // grecaptcha.execute();
+            // this might overflow our API if users leave the page open. 
+        }
 
 
         // click handler for form's submit button
