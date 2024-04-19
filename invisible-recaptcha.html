@@ -1,6 +1,20 @@
 <html>
 
 <head>
+
+
+    <!-- style etc-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+        integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
     <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onScriptLoad" async defer></script>
 
 
@@ -11,10 +25,11 @@
 
     <div class="g-recaptcha"></div>
 
-
+    <button class="ui inverted orange button" onclick="grecaptcha.execute()">Execute captcha</button>
 
     <script>
         window.onScriptLoad = function () {
+            console.log("on script load");
             // this callback will be called by recaptcah/api.js once its loaded. If we used
             // render=explicit as param in script src, then we can explicitly render reCaptcha at this point
 
@@ -41,7 +56,6 @@
 
         // this is assigned from "data-callback" or render()'s "options.callback"
         window.onUserVerified = function (token) {
-            alert('User Is verified');
             console.log('token=', token);
         };
 
